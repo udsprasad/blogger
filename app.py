@@ -1,5 +1,5 @@
-from project import app,db
-from flask import render_template,request
+from project import app,db,params
+from flask import render_template,request,session,redirect
 from project.posts.models import Posts
 
 @app.route('/')

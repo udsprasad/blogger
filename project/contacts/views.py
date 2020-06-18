@@ -1,6 +1,6 @@
 # contact views
 
-from project import db,mail
+from project import db,mail,params
 from flask import Blueprint,render_template,request
 from project.contacts.models import Contacts
 from datetime import datetime

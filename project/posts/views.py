@@ -1,12 +1,12 @@
 # posts views
 
-from project import db,mail,app
-from flask import Blueprint,render_template,request
+from project import db,mail,app,params
+from flask import Blueprint,render_template,request,flash,session
 from project.posts.models import Posts
 from datetime import datetime
 import os
 
-posts_blueprint=Blueprint('posts',__name__,template_folder='tamplates/posts')
+posts_blueprint=Blueprint('posts',__name__,template_folder='templates/posts')
 
 @posts_blueprint.route("/post/<string:post_slug>",methods=['GET'])
 def post_route(post_slug):
