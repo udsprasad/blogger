@@ -1,8 +1,8 @@
-"""added the unique
+"""create folder
 
-Revision ID: 4a971c9c0c75
+Revision ID: 4ae699b89968
 Revises: 
-Create Date: 2020-06-18 14:56:16.521707
+Create Date: 2020-06-18 18:00:28.887308
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4a971c9c0c75'
+revision = '4ae699b89968'
 down_revision = None
 branch_labels = None
 depends_on = None
