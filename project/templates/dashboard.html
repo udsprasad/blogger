@@ -52,8 +52,8 @@
         <td>{{post.sno}}</td>
         <td>{{post.title}}</td>
         <td>{{post.date}}</td>
-        <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary float-right">Edit</button></a></td>
-        <td><a href="/delete/{{post.sno}}"><button class="btn btn-primary float-right">Delete</button></a></td>
+        <td><a href="/posts/edit/{{post.sno}}"><button class="btn btn-primary float-right">Edit</button></a></td>
+        <td><a href="/posts/delete/{{post.sno}}"><button class="btn btn-primary float-right">Delete</button></a></td>
         </tr>
         {% endfor %}
     </tbody>
