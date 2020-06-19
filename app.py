@@ -1,37 +1,45 @@
 from project import app,db,params
-from flask import render_template,request,session,redirect
+from flask import render_template,request,session,redirect,flash,url_for
 from project.posts.models import Posts
+from project.users.models import User
+from flask_login import login_user,login_required,logout_user
 
 @app.route('/')
-def home():
-    posts = Posts.query.all() #[0:params['no_of_posts']]
+def index():
+    posts = Posts.query.all()
     return render_template('index.html', params=params, posts=posts)
 
-@app.route("/dashboard", methods=['GET','POST'])
+@app.route("/dashboard")
+@login_required
 def dashboard():
-
-    if ('user' in session and session['user'] == params['admin-user']):
-        posts = Posts.query.all()
-        return render_template('dashboard.html',params=params, posts=posts)
-    if request.method=='POST':
-        username = request.form.get('uname')
-        userpass = request.form.get('pass')
-        if (username==params['admin-user'] and userpass==params['admin-pass']):
-            # setting session variable
-            session['user'] = username
-            posts = Posts.query.all()
-            return render_template('dashboard.html',params=params, posts=posts)
-    return render_template("login.html", params=params)
+    posts = Posts.query.all()
+    return render_template('dashboard.html',params=params, posts=posts)
 
 @app.route("/about")
 def about():
     return render_template("about.html", params=params)
 
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method=='POST':
+        user= User.query.filter_by(email=request.form.get('email')).first()
+        if user is not None and user.check_password(request.form.get('password')):
+            login_user(user)
+            flash('Logged in successfully!')
+            next=request.args.get('next')
+            if next==None or next[0]=='/':
+                 next=url_for('dashboard')
+            return redirect(next)
+    return render_template('login.html',params=params)
 
-@app.route("/logout")
+
+@app.route('/logout')
+@login_required
 def logout():
-    session.pop('user')
-    return redirect('/dashboard')
+    logout_user()
+    flash('you logged out')
+    return render_template('index.html',params=params)
+
 
 if __name__=='__main__':
     app.run(debug=True)

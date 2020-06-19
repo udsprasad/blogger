@@ -4,6 +4,9 @@ from flask_migrate import Migrate
 from flask_mail import Mail
 import json
 import os
+from flask_login import LoginManager
+
+login_manager=LoginManager()
 
 Basedir=os.path.abspath(os.path.dirname(__name__))
 
@@ -30,8 +33,13 @@ app.config['SECRET_KEY']='mykeyy'
 db = SQLAlchemy(app)
 Migrate(app,db)
 
+login_manager.init_app(app)
+login_manager.login_view='login'
+
 from project.posts.views import posts_blueprint
 from project.contacts.views import contacts_blueprint
+from project.users.views import user_blueprint
 
 app.register_blueprint(posts_blueprint,url_prefix='/posts')
 app.register_blueprint(contacts_blueprint,url_prefix='/contacts')
+app.register_blueprint(user_blueprint,url_prefix='/user')

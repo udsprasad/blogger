@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title> Register </title>
+    <link rel="stylesheet" type="text/css" href="/static/css/register.css">
+</head>
+    <body>
+    <div class="register-box">
+    <img src="/static/images/reg-avatar.jpg" class="avatar">
+        <h1>Register Here</h1>
+        <form  method="post">
+          {{form.hidden_tag()}}
+          <p>{{form.email.label}}</p>
+          {{form.email}}
+
+          <p>{{form.username.label}}</p>
+          {{form.username}}
+
+          <p>{{form.password.label}}</p>
+          {{form.password}}
+
+          <p>{{form.password_confirm.label}}</p>
+          {{form.password_confirm}}
+
+          {{form.submit()}}
+
+        </form>
+
+
+        </div>
+
+    </body>
+</html>

@@ -5,6 +5,7 @@ from flask import Blueprint,render_template,request,flash,session
 from project.posts.models import Posts
 from datetime import datetime
 import os
+from flask_login import login_required
 
 posts_blueprint=Blueprint('posts',__name__,template_folder='templates/posts')
 
@@ -14,6 +15,7 @@ def post_route(post_slug):
     return render_template("post.html", params=params, post=post)
 
 @posts_blueprint.route('/add_post',methods=['GET','POST'])
+@login_required
 def add():
     if request.method == 'POST':
             box_title = request.form.get('title')
