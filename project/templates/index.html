@@ -20,11 +20,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <a href="{{url_for('posts.add')}}"><button class="btn btn-primary float-right">Add post</button></a><br><br>
+
 
         {% for post in posts %}
         <div class="post-preview">
-          <a href="/post/{{post.slug}}">
+          <a href="/posts/post/{{post.slug}}">
             <h2 class="post-title">
               {{post.title}}
             </h2>
@@ -33,7 +33,11 @@
             </h3>
           </a>
           <p class="post-meta">Posted by
-            <a href="#">Author</a>
+            {% for user in users %}
+            {%  if post.owner_id==user.id      %}
+            <a href="#">{{user.username}}</a>
+            {% endif  %}
+            {% endfor %}
             on {{post.date}}</p>
         </div>
         {{post.content[0:40]}}...

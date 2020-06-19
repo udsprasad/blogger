@@ -12,7 +12,11 @@
             <h1>{{post.title}}</h1>
             <h2 class="subheading">Subtitle here..</h2>
             <span class="meta">Posted by
-              <a href="#">Author</a>
+              {% for user in users %}
+              {%  if post.owner_id==user.id      %}
+              <a href="#">{{user.username}}</a>
+              {% endif  %}
+              {% endfor %}
               on {{post.date}}</span>
           </div>
         </div>

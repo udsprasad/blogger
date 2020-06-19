@@ -12,6 +12,7 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(10),nullable=False,unique=True)
     email=db.Column(db.String(20),nullable=False,unique=True)
     password_hash=db.Column(db.String(128),nullable=False)
+    posts=db.relationship("Posts",backref='owner')
 
     def __init__(self,email,username,password_hash):
         self.username=username

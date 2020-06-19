@@ -12,3 +12,4 @@ class Posts(db.Model):
     tagline = db.Column(db.String(120), nullable=False)
     date = db.Column(db.String(12), nullable=True)
     img_file = db.Column(db.String(12), nullable=True)
+    owner_id=db.Column(db.Integer,db.ForeignKey('user.id'))
