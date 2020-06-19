@@ -31,14 +31,13 @@
         <hr>
 
   <h2>Add/Edit a post</h2>
-  {% for msg in get_flashed_messages() %}
+
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    {{msg}}
+    {{get_flashed_messages().pop()}}
   </div>
-{%  endfor %}
           <form name="sentMessage" id="contactForm" action="{{url_for('posts.add')}}" , method="POST" novalidate>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">

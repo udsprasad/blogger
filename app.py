@@ -24,10 +24,9 @@ def login():
     if request.method=='POST':
         user= User.query.filter_by(email=request.form.get('email')).first()
         if user is not None and user.check_password(request.form.get('password')):
-            login_user(user)
-            flash('Logged in successfully!')
+            login_user(user)        
             next=request.args.get('next')
-            if next==None or next[0]=='/':
+            if next==None or not next[0]=='/':
                  next=url_for('dashboard')
             return redirect(next)
     return render_template('login.html',params=params)

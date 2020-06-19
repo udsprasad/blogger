@@ -7,9 +7,9 @@ from project.users.models import User
 
 class Registerform(FlaskForm):
 
-    email=StringField("Email",validators=[DataRequired(),Email()])
-    username=StringField('Username',validators=[DataRequired()])
-    password=PasswordField('Password',validators=[DataRequired(),EqualTo('password_confirm',message='Password must match')])
+    email=StringField("Email",validators=[DataRequired(message='Required'),Email('Please enter email')])
+    username=StringField('Username',validators=[DataRequired(message='Required'),Length(min=5,max=10,message='username should be in between 5 and 10 letters')])
+    password=PasswordField('Password',validators=[DataRequired(),Length(min=8,message='password must be more than 8'),EqualTo('password_confirm',message='Password must match')])
     password_confirm=PasswordField('Confirm Password',validators=[DataRequired()])
     submit=SubmitField('Register!')
 
