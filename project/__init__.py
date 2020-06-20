@@ -17,7 +17,7 @@ with open(Basedir+'/project/config.json', 'r') as c:
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = params['file_uploader']
+app.config['UPLOAD_FOLDER'] = Basedir+'/project/static/uploads'
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = '465',

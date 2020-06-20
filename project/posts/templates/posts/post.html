@@ -2,7 +2,7 @@
 {% block body %}
 
   <!-- Page Header -->
-  {% set fname = 'img/' + post.img_file %} <!-- Jinja template way of defining the variable -->
+  {% set fname = 'uploads/' + post.img_name %} 
   <header class="masthead" style="background-image: url(' {{ url_for('static', filename=fname)}} ')">
     <div class="overlay"></div>
     <div class="container">

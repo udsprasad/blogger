@@ -1,12 +1,20 @@
 # posts views
 
-from project import db,mail,app,params
+from project import db,mail,app,params,Basedir
 from flask import Blueprint,render_template,request,flash,session,redirect,url_for
 from project.posts.models import Posts
 from project.users.models import User
 from datetime import datetime
 import os
+import base64
+from werkzeug.utils import secure_filename
 from flask_login import login_required
+
+ALLOWED_EXTENSIONS = set([ 'png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 posts_blueprint=Blueprint('posts',__name__,template_folder='templates/posts')
 
@@ -24,9 +32,11 @@ def add(user_id):
             tline = request.form.get('tagline')
             slug = request.form.get('slug')
             content = request.form.get('content')
-            img_file = request.form.get('img_file')
+            image= request.files['img_file']
             owner_id=user_id
-            post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=img_file,date=datetime.now(),owner_id=owner_id)
+            if image and allowed_file(image.filename):
+               image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
+            post = Posts(title=box_title, slug=slug, content=content, tagline=tline,img_name=image.filename,date=datetime.now(),owner_id=owner_id)
             db.session.add(post)
             try:
                 db.session.commit()
@@ -46,10 +56,10 @@ def edit(sno):
       tline = request.form.get('tagline')
       slug = request.form.get('slug')
       content = request.form.get('content')
-      img_file = request.form.get('img_file')
+      image = request.files['img_file']
 
       if sno == '0':
-          post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=img_file,date=datetime.now(),owner_id=current_user.get_id())
+          post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=image.filename,date=datetime.now(),owner_id=current_user.get_id())
           db.session.add(post)
           db.session.commit()
       else:
@@ -58,8 +68,10 @@ def edit(sno):
           post.tagline = tline
           post.slug = slug
           post.content = content
-          post.img_file = img_file
+          post.img_name = image.filename
           post.date=datetime.now()
+          if image and allowed_file(image.filename):
+             image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
           try:
               db.session.commit()
           except:
@@ -72,9 +84,15 @@ def edit(sno):
 @posts_blueprint.route("/uploader", methods=["GET", "POST"])
 def uploader():
     if (request.method == 'POST'):
-        f = request.files['file1']
-        f.save(os.path.join(app.config['UPLOAD_FOLDER']))#, secure_filename(f.filename)))
-        return "Uploaded successfully"
+         if 'file1' not in request.files:
+             return 'No file part'
+         file = request.files['file1']
+         if file.filename == '':
+             flash('No selected file')
+             return 'No file selected'
+         if file and allowed_file(file.filename):
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(file.filename)))
+            return "Uploaded successfully"
 
 @posts_blueprint.route("/delete/<string:sno>", methods=["GET", "POST"])
 def delete(sno):
