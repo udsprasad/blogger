@@ -36,13 +36,13 @@ def add(user_id):
             owner_id=user_id
             if image and allowed_file(image.filename):
                image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
-            post = Posts(title=box_title, slug=slug, content=content, tagline=tline,img_name=image.filename,date=datetime.now(),owner_id=owner_id)
+            post = Posts(title=box_title, slug=slug, content=content, tagline=tline,img_name=image.filename,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
             db.session.add(post)
             try:
                 db.session.commit()
             except:
                 flash('title should be unique')
-
+                return redirect(url_for('posts.add',user_id=user_id))
     return render_template('add.html',params=params,user_id=user_id)
 
 
@@ -59,7 +59,7 @@ def edit(sno):
       image = request.files['img_file']
 
       if sno == '0':
-          post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=image.filename,date=datetime.now(),owner_id=current_user.get_id())
+          post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=image.filename,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=current_user.get_id())
           db.session.add(post)
           db.session.commit()
       else:
@@ -68,10 +68,10 @@ def edit(sno):
           post.tagline = tline
           post.slug = slug
           post.content = content
-          post.img_name = image.filename
-          post.date=datetime.now()
+          post.date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
           if image and allowed_file(image.filename):
-             image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
+              post.img_name = image.filename
+              image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
           try:
               db.session.commit()
           except:
@@ -80,19 +80,6 @@ def edit(sno):
   post = Posts.query.filter_by(sno=sno).first()
   return render_template('edit.html', params=params, post=post, sno=sno)
 
-
-@posts_blueprint.route("/uploader", methods=["GET", "POST"])
-def uploader():
-    if (request.method == 'POST'):
-         if 'file1' not in request.files:
-             return 'No file part'
-         file = request.files['file1']
-         if file.filename == '':
-             flash('No selected file')
-             return 'No file selected'
-         if file and allowed_file(file.filename):
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(file.filename)))
-            return "Uploaded successfully"
 
 @posts_blueprint.route("/delete/<string:sno>", methods=["GET", "POST"])
 def delete(sno):
