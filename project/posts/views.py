@@ -59,6 +59,7 @@ def edit(sno):
           post.slug = slug
           post.content = content
           post.img_file = img_file
+          post.date=datetime.now()
           try:
               db.session.commit()
           except:
@@ -78,6 +79,7 @@ def uploader():
 @posts_blueprint.route("/delete/<string:sno>", methods=["GET", "POST"])
 def delete(sno):
     post = Posts.query.filter_by(sno=sno).first()
+    user_id=post.owner_id
     db.session.delete(post)
     db.session.commit()
-    return redirect('/dashboard')
+    return redirect(url_for('dashboard',user_id=user_id))
