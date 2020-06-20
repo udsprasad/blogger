@@ -41,7 +41,7 @@ def add(user_id):
             try:
                 db.session.commit()
             except:
-                flash('title should be unique')
+                flash('Title/Slug should be unique')
                 return redirect(url_for('posts.add',user_id=user_id))
     return render_template('add.html',params=params,user_id=user_id)
 
@@ -75,7 +75,7 @@ def edit(sno):
           try:
               db.session.commit()
           except:
-              flash('title should be unique')
+              flash('Title/Slug should be unique')
           return redirect(url_for('posts.edit',sno=sno))
   post = Posts.query.filter_by(sno=sno).first()
   return render_template('edit.html', params=params, post=post, sno=sno)

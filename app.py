@@ -42,5 +42,10 @@ def logout():
     return render_template('index.html',params=params)
 
 
+@app.route('/term_cond')
+def term_cond():
+    return render_template('term_cond.html')
+
+
 if __name__=='__main__':
     app.run(debug=True)

@@ -31,16 +31,16 @@
             {% else %}
                 <a class="navbar-brand" href="/">{{params['side_name_wt_ot_user']}}</a>
             {% endif %}
-    
+
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="{{url_for('index')}}">Home</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="/about">About</a>
           </li>
@@ -56,7 +56,10 @@
           <li class="nav-item">
             <a class="nav-link" href="/dashboard/{{current_user.get_id()}}">Dashboard</a>
           </li>
-             <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/add_post/{{current_user.get_id()}}">Add</a>
+          </li>
+           <li class="nav-item">
                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
              </li>
           {% else %}
