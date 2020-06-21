@@ -36,12 +36,9 @@ def add(user_id):
         content=form.content.data
         image=form.image.data
         owner_id=user_id
-        if image and allowed_file(image.filename):
+        if image :
             image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
-            post = Posts(title=title, slug=slug, content=content, tagline=tagline,img_name=image.filename,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
-        else:
-            post = Posts(title=title, slug=slug, content=content, tagline=tagline,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
-
+        post = Posts(title=title, slug=slug, content=content, tagline=tagline,img_name=image.filename,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('dashboard',user_id=user_id))

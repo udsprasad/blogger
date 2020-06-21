@@ -29,7 +29,17 @@
         <a href="/logout"><button class="btn btn-primary float-right">Logout</button></a><br><br>
         <hr>
 
-  <h2>Add/Edit a post</h2>
+  <h2>Edit a post</h2>
+  {%for msg in get_flashed_messages() %}
+  {% if msg=='Title/Slug should be unique' %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{get_flashed_messages().pop()}}
+  </div>
+  {%  endif %}
+  {% endfor %}
           <form name="sentMessage" id="contactForm" action="/posts/edit/{{sno}}" , method="POST", enctype="multipart/form-data" novalidate>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
@@ -64,6 +74,7 @@
               <h3>Upload a Image</h3><br>
               <input type='file'class="form-control" placeholder="Image File" name="img_file" id="img_file" value="{{post.img_file}}">
               <p class="help-block text-danger"></p>
+              <h6>Applicable formats: <b>'png', 'jpg', 'jpeg', 'gif'</b></h6>
             </div>
           </div>
           <br>
