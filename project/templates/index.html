@@ -43,9 +43,11 @@
         {{post.content[0:40]}}...
         <hr>
         {% endfor %}
+        
         <!-- Pager -->
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            <a class="btn btn-primary float-right" href="{{next}}">Next &rarr;</a>
+            <a class="btn btn-primary float-left" href="{{prev}}"> &larr;Previous</a>
         </div>
       </div>
     </div>
