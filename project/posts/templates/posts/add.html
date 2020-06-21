@@ -28,57 +28,75 @@
         <hr>
 
 
-  <h2>Add/Edit a post</h2>
-  {%for msg in get_flashed_messages() %}
-  {% if msg=='Title/Slug should be unique' %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    {{get_flashed_messages().pop()}}
-  </div>
-  {%  endif %}
-  {% endfor %}
-          <form name="sentMessage" id="contactForm" action="/posts/add_post/{{user_id}}" , method="POST", enctype="multipart/form-data" novalidate>
+  <h2>Add a post</h2>
+
+          <form name="sentMessage" id="contactForm"  method="POST" enctype="multipart/form-data" novalidate>
           <div class="control-group">
+            {{form.hidden_tag()}}
             <div class="form-group floating-label-form-group controls">
+
               <label>Title</label>
-              <input type="text" class="form-control" placeholder="Title" name="title" id="title" required data-validation-required-message="Please enter your name.">
+              {{form.title(placeholder="Title")}}
+
               <p class="help-block text-danger"></p>
+
+              <ul>
+                  {% for error in  form.title.errors %}
+                <li>{{error}}</li>
+                  {% endfor %}
+              </ul>
+
             </div>
           <!-- </div> -->
             <div class="form-group floating-label-form-group controls">
               <label>Tagline</label>
-              <input type="text" class="form-control" placeholder="Tagline" name="tagline" id="tagline" required data-validation-required-message="Please enter your email address." >
+            {{form.tagline(placeholder='Tagline')}}
+            <ul>
+                {% for error in  form.tagline.errors %}
+              <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group col-xs-15 floating-label-form-group controls">
               <label>Slug</label>
-              <input type="tel" class="form-control" placeholder="Slug" name="slug" id="slug" required data-validation-required-message="Please enter your phone number." >
+            {{form.slug(placeholder='Slug')}}
+            <ul>
+              {% for error in  form.slug.errors %}
+              <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Content</label>
-              <textarea rows="5" class="form-control" placeholder="Content" name="content" id="content" required data-validation-required-message="Please enter a message." ></textarea>
+              {{form.content(placeholder='Content')}}
+              <ul>
+              {% for error in  form.content.errors %}
+                <li>{{error}}</li>
+              {% endfor %}
+                </ul>
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Image File</label>
-              <h6>Upload a Image</h6>
-              <input type="file" class="form-control" placeholder="Image File" name="img_file" id="img_file" >
+              <h3>Upload a Image</h3><br>
+            {{form.image(placeholder='Image')}}
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <br>
           <div id="success"></div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+            {{form.submit( class="btn btn-primary")}}
           </div>
         <!-- Pager -->
         <div class="clearfix">

@@ -4,6 +4,7 @@ from project import db,mail,app,params,Basedir
 from flask import Blueprint,render_template,request,flash,session,redirect,url_for
 from project.posts.models import Posts
 from project.users.models import User
+from project.posts.forms import Addform
 from datetime import datetime
 import os
 import base64
@@ -27,23 +28,24 @@ def post_route(post_slug):
 @posts_blueprint.route('/add_post/<user_id>',methods=['GET','POST'])
 @login_required
 def add(user_id):
-    if request.method == 'POST':
-            box_title = request.form.get('title')
-            tline = request.form.get('tagline')
-            slug = request.form.get('slug')
-            content = request.form.get('content')
-            image= request.files['img_file']
-            owner_id=user_id
-            if image and allowed_file(image.filename):
-               image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
-            post = Posts(title=box_title, slug=slug, content=content, tagline=tline,img_name=image.filename,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
-            db.session.add(post)
-            try:
-                db.session.commit()
-            except:
-                flash('Title/Slug should be unique')
-                return redirect(url_for('posts.add',user_id=user_id))
-    return render_template('add.html',params=params,user_id=user_id)
+    form = Addform()
+    if form.validate_on_submit():
+        title=form.title.data
+        tagline=form.tagline.data
+        slug=form.slug.data
+        content=form.content.data
+        image=form.image.data
+        owner_id=user_id
+        if image and allowed_file(image.filename):
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
+            post = Posts(title=title, slug=slug, content=content, tagline=tagline,img_name=image.filename,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
+        else:
+            post = Posts(title=title, slug=slug, content=content, tagline=tagline,date=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
+
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('dashboard',user_id=user_id))
+    return render_template('add.html',params=params,user_id=user_id,form=form)
 
 
 

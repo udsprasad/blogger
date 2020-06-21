@@ -5,7 +5,7 @@
     "fb_url": "https://facebook.com/python_database",
     "tw_url": "https://twitter.com/python_database",
     "gh_url": "https://github.com/indurkhya?tab=repositories",
-    "blog_name": "Reliance Jio",
+    "blog_name": "Web Blogger",
     "tag_line": "Sabka sath sabska vikas",
     "about_content": "Hello welcome to about section",
     "title_name": "Blogger.com",
@@ -15,12 +15,6 @@
     "gmail_user": "saksham.indurkhya94@gmail.com",
     "gmail_password": "Saksham@123",
     "no_of_posts": 2,
-    "login_image": "login.jpg",
-    "admin-user": "saksham",
-    "admin-user": "harsh",
-    "admin-pass": "Saksham@123",
-    "admin-pass": "Harsh@123",
-    "about_image": "about-bg.jpg",
-    "file_uploader": "C:\\Users\\Saksham\\Documents"
+    "login_image": "login.jpg"
   }
 }
