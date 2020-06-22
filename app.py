@@ -10,6 +10,7 @@ import math
 def index():
     posts = Posts.query.all()
     last = math.ceil(len(posts)/int(params['no_of_posts']))
+    length=len(posts)
     # posts = posts[]
     page = request.args.get('page')
     if (not str(page).isnumeric()):
