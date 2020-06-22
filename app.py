@@ -10,7 +10,6 @@ import math
 def index():
     posts = Posts.query.all()
     last = math.ceil(len(posts)/int(params['no_of_posts']))
-    length=len(posts)
     # posts = posts[]
     page = request.args.get('page')
     if (not str(page).isnumeric()):
@@ -66,6 +65,14 @@ def logout():
 @app.route('/term_cond')
 def term_cond():
     return render_template('term_cond.html')
+
+@app.route('/search',methods=['GET','POST'])
+def search():
+
+    if request.method == "POST":
+        posts=Posts.query.filter_by(title=request.form.get('search'))
+        return render_template('search.html',params=params,posts=posts)
+    return render_template('search.html',params=params)
 
 
 if __name__=='__main__':

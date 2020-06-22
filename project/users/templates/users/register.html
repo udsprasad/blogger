@@ -95,10 +95,12 @@ a {
     </ul>
 
     {{form.password.label}} :{{form.password(placeholder='Password')}}
-    {{form.password_confirm.label}} :{{form.password_confirm}}
+    {{form.password_confirm.label}} :{{form.password_confirm(placeholder='Confirm Password')}}
+    <ul>
     {% for error in form.password.errors %}
       <li> {{  error }}</li>
     {%  endfor %}
+    </ul>
 
 <!--    <label for="mobile_no"><b>Mobile Number</b></label>-->
 <!--    <input type="text" placeholder="Enter mobile number" name="mobile_no" id="mobile_no" required>-->
