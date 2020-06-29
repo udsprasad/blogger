@@ -71,7 +71,7 @@ def term_cond():
 def search():
 
     if request.method == "POST":
-        posts=Posts.query.filter_by(title=request.form.get('search'))
+        posts=Posts.query.filter(Posts.title.contains(request.form.get('search')))
         return render_template('search.html',params=params,posts=posts)
     return render_template('search.html',params=params)
 

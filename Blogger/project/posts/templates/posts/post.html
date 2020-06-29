@@ -2,7 +2,7 @@
 {% block body %}
 
   <!-- Page Header -->
-  {% set fname = 'uploads/' + post.img_name %} 
+  {% set fname = 'uploads/' + post.img_name %}
   <header class="masthead" style="background-image: url(' {{ url_for('static', filename=fname)}} ')">
     <div class="overlay"></div>
     <div class="container">
@@ -10,7 +10,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
             <h1>{{post.title}}</h1>
-            <h2 class="subheading">Subtitle here..</h2>
+            <h2 class="subheading">{{post.tagline}}</h2>
             <span class="meta">Posted by
               {% for user in users %}
               {%  if post.owner_id==user.id      %}
