@@ -46,6 +46,7 @@ def login():
         user= User.query.filter_by(email=request.form.get('email')).first()
         if user is not None and user.check_password(request.form.get('password')):
             login_user(user)
+            flash("Heyy you successfully logged in")
             user_id=user.id
             next=request.args.get('next')
             if next==None or not next[0]=='/':
