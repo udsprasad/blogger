@@ -9,7 +9,7 @@ click==7.1.2
 configparser==4.0.2
 contextlib2==0.6.0.post1
 coverage==5.1
-cryptography==2.1.4
+cryptography==2.3
 dnspython==1.16.0
 email-validator==1.1.1
 enum34==1.1.6
