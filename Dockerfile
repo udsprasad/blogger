@@ -6,4 +6,4 @@ COPY Blogger .
 RUN pip3 install -r requirements.txt
 EXPOSE 8000
 SHELL ["/bin/bash", "-c"]
-CMD ["gunicorn3","-b","0.0.0.0:8000","app:app"]
+CMD ["gunicorn3","-b","0.0.0.0:8000","app:app","--workers=5"]
