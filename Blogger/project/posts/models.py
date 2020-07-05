@@ -7,7 +7,7 @@ class Posts(db.Model):
     # sno , name , email , phone_no , msg , date #db variables
     sno = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80),unique=True,index=True, nullable=False)
-    slug = db.Column(db.String(25),unique=True,index=True, nullable=False)
+    slug = db.Column(db.String(25),unique=True,nullable=False)
     content = db.Column(db.String(400), nullable=False)
     tagline = db.Column(db.String(120), nullable=False)
     date = db.Column(db.String(12), nullable=True)
