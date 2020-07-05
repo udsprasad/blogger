@@ -1,0 +1,20 @@
+{
+  "params":
+  {
+    "local_url": "mysql+pymysql://root:@localhost/python_database",
+    "fb_url": "https://facebook.com/python_database",
+    "tw_url": "https://twitter.com/python_database",
+    "gh_url": "https://github.com/indurkhya?tab=repositories",
+    "blog_name": "Web Blogger",
+    "tag_line": "Sabka sath sabska vikas",
+    "about_content": "Hello welcome to about section",
+    "title_name": "Blogger.com",
+    "side_name_wt_user": "Welcome",
+    "side_name_wt_ot_user":"Blog",
+    "tag_line": "Be active to blog in Devops portal",
+    "gmail_user": "saksham.indurkhya94@gmail.com",
+    "gmail_password": "Saksham@123",
+    "no_of_posts": 2,
+    "login_image": "login.jpg"
+  }
+}
