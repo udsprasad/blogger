@@ -2,14 +2,17 @@ import pytest
 from project import db
 from project.users.models import User,check_password_hash
 from project.posts.models import Posts
+from project.contacts.models import Contacts
 
 @pytest.fixture()
 def init_db():
     db.create_all()
     user=User('user1@gmail.com','user1','password123')
     post=Posts(title='nature',slug='peace',tagline='superbb',content='hai nature is cool',date='7/6/2020',img_name='pic.jpg')
+    contact=Contacts(name='user1',email='user1@gmail.com',phone_no='7999999999',msg='hiiii')
     db.session.add(user)
     db.session.add(post)
+    db.session.add(contact)
     db.session.commit()
     yield db
     db.drop_all()
@@ -28,3 +31,7 @@ def test_post(init_db):
     assert first.content=='hai nature is cool'
     assert first.date=='7/6/2020'
     assert first.img_name=='pic.jpg'
+
+def test_contact(init_db):
+    first=Contacts.query.get(1)
+    assert first.name=='user1'
