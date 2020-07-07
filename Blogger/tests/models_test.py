@@ -1,8 +1,16 @@
 import pytest
-from project import db
+import os
+from project import db,create_app
 from project.users.models import User,check_password_hash
 from project.posts.models import Posts
 from project.contacts.models import Contacts
+from flask_sqlalchemy import SQLAlchemy
+
+config_obj=os.environ.get('DIAG_CONFIG_MODULE','config.configtest')
+app=create_app(config_obj)
+db.init_app(app)
+app.app_context().push()
+
 
 @pytest.fixture()
 def init_db():

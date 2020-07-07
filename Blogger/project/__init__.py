@@ -13,10 +13,14 @@ Basedir=os.path.abspath(os.path.dirname(__name__))
 with open(Basedir+'/project/config.json', 'r') as c:
     params = json.load(c)["params"]
 
+db = SQLAlchemy()
 
-
-app = Flask(__name__)
-
+def create_app(configfile):
+    app=Flask(__name__)
+    app.config.from_object(configfile)
+    return app
+config_obj=os.environ.get('DIAG_CONFIG_MODULE','config.configapp')
+app=create_app(config_obj)
 app.config['UPLOAD_FOLDER'] = Basedir+'/project/static/uploads'
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
@@ -26,11 +30,7 @@ app.config.update(
     MAIL_PASSWORD = params['gmail_password']
 )
 mail = Mail(app)
-app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///'+os.path.join(Basedir,'data.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-app.config['SECRET_KEY']='mykeyy'
-
-db = SQLAlchemy(app)
+db.init_app(app)
 Migrate(app,db)
 
 login_manager.init_app(app)
