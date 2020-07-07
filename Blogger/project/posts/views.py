@@ -31,18 +31,23 @@ def post_route(post_slug):
 def add(user_id):
     form = Addform()
     if form.validate_on_submit():
-        title=form.title.data
-        tagline=form.tagline.data
-        slug=form.slug.data
-        content=form.content.data
-        image=form.image.data
-        owner_id=user_id
-        if image :
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
-        post = Posts(title=title, slug=slug, content=content, tagline=tagline,img_name=image.filename,date=datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('dashboard',user_id=user_id))
+
+        if '?' in form.slug.data:
+            flash('(?) is not allowed in slug')
+            return render_template('add.html',params=params,user_id=user_id,form=form)
+        else:
+            title=form.title.data
+            tagline=form.tagline.data
+            slug=form.slug.data
+            content=form.content.data
+            image=form.image.data
+            owner_id=user_id
+            if image :
+               image.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(image.filename)))
+            post = Posts(title=title, slug=slug, content=content, tagline=tagline,img_name=image.filename,date=datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d %H:%M:%S"),owner_id=owner_id)
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('dashboard',user_id=user_id))
     return render_template('add.html',params=params,user_id=user_id,form=form)
 
 

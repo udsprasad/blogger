@@ -29,6 +29,16 @@
 
 
   <h2>Add a post</h2>
+  {% for mess in get_flashed_messages() %}
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{mess}}
+    </div>
+
+  {% endfor %}
 
           <form name="sentMessage" id="contactForm"   method="POST" enctype="multipart/form-data" novalidate>
           <div class="control-group">
@@ -103,7 +113,7 @@
           <div class="form-group">
             <center>   {{form.submit( class="btn btn-primary")}}   </center>
           </div>
-      
+
       </div>
     </div>
   </div>
