@@ -1,7 +1,7 @@
 # contact views
 
 from project import db,mail,params
-from flask import Blueprint,render_template,request
+from flask import Blueprint,render_template,request,flash
 from project.contacts.models import Contacts
 from datetime import datetime
 
@@ -11,9 +11,11 @@ contacts_blueprint=Blueprint('contacts',__name__,template_folder='templates/cont
 
 def contact():
     if (request.method=='POST'):
-        "Add entry to db"
         name = request.form.get('name')
         email = request.form.get('email')
+        if email == '' and name == '':
+            flash('Please do not leave email and name fields as empty')
+            return render_template("contact.html", params=params)
         phone = request.form.get('phone')
         message= request.form.get('message')
         # sno , name , email , phone_no , msg , date #db variables
