@@ -1,0 +1,24 @@
+---
+# tasks file for ./roles/docker
+- name: Create a test directory if it does not exist
+  file:
+    path: "{{ansible_user_dir }}/test"
+    state: directory
+    mode: '0755'
+- name: Copy Dockerfile
+  copy:
+    src: Dockerfile
+    dest: "{{ansible_user_dir }}/test/"
+- name: Copy Blogger                     
+  copy:
+    src: Blogger           
+    dest: "{{ansible_user_dir }}/test/"
+
+- name: Execute the command to build docker image
+  shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
+
+
+- name: Execute the command to run docker container
+  shell: docker run -d -p 12321:8000 --name test10 blog:10 
+
+
