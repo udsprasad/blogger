@@ -43,3 +43,6 @@ def test_post(init_db):
 def test_contact(init_db):
     first=Contacts.query.get(1)
     assert first.name=='user1'
+    assert first.email=='user1@gmail.com'
+    assert first.phone_no=='7999999999'
+    assert first,msg=='hiiii'
