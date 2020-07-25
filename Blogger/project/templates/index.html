@@ -29,37 +29,43 @@
 
     {% endfor %}
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="col-lg-10 col-md-10 mx-auto">
+        <div class="row">
+          {% for post in posts %}
+                  <div class="col-md-4">
 
+                  <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" src="/static/uploads/{{post.img_name}}" style="height: 225px; width: 100%; display: block;"  data-holder-rendered="true">
+                    <div class="card-body">
+                      <a href="/posts/post/{{post.slug}}">
+                      <h3 class="post-title">
+                        {{post.title}}
+                      </h3>
+                      <h6 class="post-subtitle">
+                        {{post.tagline}}
+                      </h6>
+                      </a>
+                      <p class='post-meta'>Posted by
+                        {% for user in users %}
+                        {%  if post.owner_id==user.id      %}
+                        <a href="#">{{user.username}}</a>
+                        {% endif  %}
+                        {% endfor %}
+                        on {{post.date}}</p>
 
-        {% for post in posts %}
-        <div class="post-preview">
-          <a href="/posts/post/{{post.slug}}">
-            <h2 class="post-title">
-              {{post.title}}
-            </h2>
-            <h3 class="post-subtitle">
-              {{post.tagline}}
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            {% for user in users %}
-            {%  if post.owner_id==user.id      %}
-            <a href="#">{{user.username}}</a>
-            {% endif  %}
-            {% endfor %}
-            on {{post.date}}</p>
-        </div>
-        {{post.content[0:40]}}...
-        <hr>
-        {% endfor %}
+                    </div>
+                  </div>
+                </div>
+         {% endfor %}
+       </div>
+
 
         <!-- Pager -->
         <div class="clearfix">
             <a class="btn btn-primary float-right" href="{{next}}">Next &rarr;</a>
             <a class="btn btn-primary float-left" href="{{prev}}"> &larr;Previous</a>
         </div>
-      </div>
+        </div>
     </div>
   </div>
 {% endblock %}
