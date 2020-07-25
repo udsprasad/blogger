@@ -34,20 +34,9 @@
       <h2> Basic Actions</h2>
     <a href="/posts/add_post/{{user_id}}"><button class="btn btn-primary float-right">Create post</button></a><br><br>
     <hr>
-      <!-- <a href="/dashboard/{{user_id}}"><button class="btn btn-primary float-right">Dashboard Home</button></a><br><br>
-      <hr> -->
-<!--      <a href="/logout"><button class="btn btn-primary float-right">Logout</button></a><br><br>-->
-<!--      <hr>-->
-      <!-- <h2>Upload a file</h2>
-          <form action="/posts/uploader" method="post" enctype="multipart/form-data">
 
-            <input type="file" name="file1">
-            <button type="submit" class="btn btn-primary float-right">Submit</button><br><br>
-          </form>
-      <hr> -->
-<!--  <div class="col-lg-15 col-md-15 mx-auto">-->
-  <h2>Posts</h2>
-  <div class="table-responsive">
+  <h2>My Posts</h2>
+  <!-- <div class="table-responsive">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -72,7 +61,35 @@
         {% endfor %}
     </tbody>
   </table>
-  </div>
+  </div> -->
+  <div class="row">
+    {% for post in posts %}
+            <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+              <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" src="/static/uploads/{{post.img_name}}" style="height: 225px; width: 100%; display: block;"  data-holder-rendered="true">
+              <div class="card-body">
+                <a href="/posts/post/{{post.slug}}">
+                <h3 class="post-title">
+                  {{post.title}}
+                </h3>
+                <h6 class="post-subtitle">
+                  {{post.tagline}}
+                </h6>
+                </a>
+                <p class='post-meta'>Posted by
+                  {% for user in users %}
+                  {%  if post.owner_id==user.id      %}
+                  <a href="#">{{user.username}}</a>
+                  {% endif  %}
+                  {% endfor %}
+                  on {{post.date}}</p>
+                      <a href="/posts/edit/{{post.sno}}"><button type="button" class="btn btn-sm btn-outline-secondary float-left">Edit</button></a>
+                      <a href="/posts/delete/{{post.sno}}"><button type="button" class="btn btn-sm btn-outline-secondary float-right">Delete</button></a>
+              </div>
+            </div>
+          </div>
+   {% endfor %}
+ </div>
 
 
       </div>
