@@ -2,13 +2,14 @@ from project import app,db,params
 from flask import render_template,request,session,redirect,flash,url_for
 from project.posts.models import Posts
 from project.users.models import User
-from flask_login import login_user,login_required,logout_user
+from project.like.models import Like
+from flask_login import login_user,login_required,logout_user,current_user
 import math
 
 
 @app.route('/')
 def index():
-    posts = Posts.query.all()
+    posts = Posts.query.all()[::-1]
     last = math.ceil(len(posts)/int(params['no_of_posts']))
     # posts = posts[]
     page = request.args.get('page')
@@ -60,7 +61,18 @@ def login():
 def logout():
     logout_user()
     flash('you logged out')
-    return render_template('index.html',params=params)
+    return redirect(url_for('index'))
+
+@app.route('/like/<int:post_id>/<action>')
+@login_required
+def like_action(post_id,action):
+    post=Posts.query.filter_by(sno=post_id).first();
+    if action=='like':
+        current_user.like_post(post)
+    else:
+        current_user.unlike_post(post)
+        db.session.commit()
+    return redirect(url_for('index'))
 
 
 @app.route('/term_cond')
@@ -77,4 +89,4 @@ def search():
 
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(debug=False)

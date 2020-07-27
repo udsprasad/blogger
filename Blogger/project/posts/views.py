@@ -10,7 +10,7 @@ import pytz
 import os
 import base64
 from werkzeug.utils import secure_filename
-from flask_login import login_required
+from flask_login import login_required,current_user
 
 ALLOWED_EXTENSIONS = set([ 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -81,7 +81,7 @@ def edit(sno):
               db.session.commit()
           except:
               flash('Title/Slug should be unique')
-          return redirect(url_for('posts.edit',sno=sno))
+          return redirect(url_for('dashboard',user_id=current_user.get_id()))
   post = Posts.query.filter_by(sno=sno).first()
   return render_template('edit.html', params=params, post=post, sno=sno)
 

@@ -13,3 +13,4 @@ class Posts(db.Model):
     date = db.Column(db.String(12), nullable=True)
     img_name = db.Column(db.String(20), nullable=True)
     owner_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+    likes=db.relationship('Like',backref='Posts',lazy='dynamic')
