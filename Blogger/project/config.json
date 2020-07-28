@@ -2,9 +2,9 @@
   "params":
   {
     "local_url": "mysql+pymysql://root:@localhost/python_database",
-    "fb_url": "https://facebook.com/python_database",
-    "tw_url": "https://twitter.com/python_database",
-    "gh_url": "https://github.com/indurkhya?tab=repositories",
+    "fb_url": "https://facebook.com/",
+    "tw_url": "https://twitter.com/",
+    "gh_url": "https://github.com/",
     "blog_name": "Web Blogger",
     "tag_line": "Sabka sath sabska vikas",
     "about_content": "Hello welcome to about section",
