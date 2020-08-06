@@ -16,6 +16,9 @@
 
 - name: Execute the command to build docker image
   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
+  
+- name: Execute the command to delete docker container
+  shell: docker conatiner rm test10 -f
 
 
 - name: Execute the command to run docker container
