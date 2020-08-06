@@ -11,7 +11,6 @@ def client():
 def test_home_page(client,init_db):
     response=client.get('/')
     assert response.status_code==200
-    assert b'Web Blogger'in response.data
     assert b'about' in response.data
     assert b'contact' in response.data
     assert b'search'  in response.data
