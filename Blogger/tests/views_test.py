@@ -24,9 +24,7 @@ def test_contact_page(client,init_db):
     response=client.get('/contacts/add_contact')
     assert response.status_code==200
 
-    # testing POST
-    reponse=client.post('/contacts/add_contact',data=dict(name='prasad',email='user1@gmail.com',phone_no='7999999999',msg='hii'),follow_redirects=True)
-    assert response.status_code==200
+    
 
 def test_edit_page(client,init_db):
     response=client.get('/posts/edit/1')
