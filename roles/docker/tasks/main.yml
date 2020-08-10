@@ -18,17 +18,16 @@
   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
 
 - name: Get infos on container
-  docker_container_info:
-    name: test10
+  shell: docker ps -a -f name=test10
   register: result
 
-- name: Does container exist?
+- name: result
   debug:
-    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+    msg: '{{'exists' if result.stdout_lines|length == 2 else 'not exists' }}'
 
 - name: Execute the command to delete docker container
   shell: docker container rm test10 -f
-  when: result.exists
+  when: result.stdout_lines|length == 2
 
 
 - name: Execute the command to run docker container
