@@ -17,10 +17,10 @@
 # - name: Execute the command to build docker image
 #   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
 
-- name: Get infos on container
-  docker_container_info:
-    name: test10
-  register: result
+# - name: Get infos on container
+#   docker_container_info:
+#     name: test10
+#   register: result
 
 - name: Does container exist?
   debug:
