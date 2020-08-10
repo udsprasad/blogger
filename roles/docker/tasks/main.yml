@@ -19,7 +19,7 @@
 
 - name: Get infos on container
   docker_container_info:
-     name: test10
+    name: test10
   register: result
 
 - name: Does container exist?
