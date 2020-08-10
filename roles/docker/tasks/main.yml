@@ -23,7 +23,7 @@
 
 - name: result
   debug:
-    msg: '{{'exists' if result.stdout_lines|length == 2 else 'not exists' }}'
+    msg: "{{result.stdout_lines|length }}"
 
 - name: Execute the command to delete docker container
   shell: docker container rm test10 -f
