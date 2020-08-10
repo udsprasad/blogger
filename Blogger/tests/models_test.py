@@ -4,7 +4,6 @@ from project import db,create_app
 from project.users.models import User,check_password_hash
 from project.posts.models import Posts
 from project.contacts.models import Contacts
-from project.like.models import Like
 from flask_sqlalchemy import SQLAlchemy
 
 config_obj=os.environ.get('DIAG_CONFIG_MODULE','config.configtest')
@@ -19,11 +18,9 @@ def init_db():
     user=User('user1@gmail.com','user1','password123')
     post=Posts(title='nature',slug='peace',tagline='superbb',content='hai nature is cool',date='7/6/2020',img_name='pic.jpg')
     contact=Contacts(name='user1',email='user1@gmail.com',phone_no='7999999999',msg='hiiii')
-    like=Like(liked_id='1',post_id='1')
     db.session.add(user)
     db.session.add(post)
     db.session.add(contact)
-    db.session.add(like)
     db.session.commit()
     yield db
     db.drop_all()
@@ -49,8 +46,3 @@ def test_contact(init_db):
     assert first.email=='user1@gmail.com'
     assert first.phone_no=='7999999999'
     assert first,msg=='hiiii'
-
-def test_like(init_db):
-    first=Like.query.get(1)
-    assert first.liked_id==1
-    assert first.post_id==1

@@ -9,19 +9,27 @@
   copy:
     src: Dockerfile
     dest: "{{ansible_user_dir }}/test/"
-- name: Copy Blogger                     
+- name: Copy Blogger
   copy:
-    src: Blogger           
+    src: Blogger
     dest: "{{ansible_user_dir }}/test/"
 
 - name: Execute the command to build docker image
   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
-  
+
+- name: Get infos on container
+  docker_container_info:
+    name: test10
+  register: result
+
+- name: Does container exist?
+  debug:
+    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
 - name: Execute the command to delete docker container
   shell: docker container rm test10 -f
+  when: result.exists
 
 
 - name: Execute the command to run docker container
-  shell: docker run -d -p 12321:8000 --name test10 blog:10 
-
-
+  shell: docker run -d -p 12321:8000 --name test10 blog:10
