@@ -1,5 +1,5 @@
 
-# tasks file for ./roles/docker
+# tasks file for ./roles/docker/
 - name: Create a test directory if it does not exist
   file:
     path: "{{ansible_user_dir }}/test"
