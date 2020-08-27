@@ -1,0 +1,11 @@
+1598531514825	geckodriver	INFO	Listening on 127.0.0.1:41569
+1598531515824	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilerSCGlz"
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 281: NS_ERROR_FAILURE: Should pass a non-null uri
+1598531531166	Marionette	INFO	Listening on port 34753
+1598531531244	Marionette	WARN	TLS certificate errors will be ignored for this session
+1598532397642	Marionette	INFO	Stopped listening on port 34753
+1598533169218	geckodriver	INFO	Listening on 127.0.0.1:34017
+1598533170254	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileArSIEC"
+1598533179659	Marionette	INFO	Listening on port 39211
+1598533179718	Marionette	WARN	TLS certificate errors will be ignored for this session
+1598533186956	Marionette	INFO	Stopped listening on port 39211
