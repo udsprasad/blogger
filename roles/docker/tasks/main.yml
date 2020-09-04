@@ -16,8 +16,11 @@
     src: Blogger.zip
     dest: "{{ansible_user_dir }}/test/"
     
-- name: Unzip Blogger.zip
-  shell: unzip "{{ansible_user_dir }}/test/Blogger.zip" -d "{{ansible_user_dir }}/test/"
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: "{{ansible_user_dir }}/test/Blogger.zip"
+    dest: "{{ansible_user_dir }}/test/"
+    remote_src: yes
   
 - name: Execute the command to build docker image
   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
