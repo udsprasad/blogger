@@ -11,11 +11,14 @@
     src: Dockerfile
     dest: "{{ansible_user_dir }}/test/"
 
-- name: Copy Blogger
+- name: Copy Blogger.zip
   copy:
     src: Blogger.zip
     dest: "{{ansible_user_dir }}/test/"
-
+    
+- name: Unzip Blogger.zip
+  shell: unzip "{{ansible_user_dir }}/test/Blogger.zip" -d "{{ansible_user_dir }}/test/"
+  
 - name: Execute the command to build docker image
   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
 
