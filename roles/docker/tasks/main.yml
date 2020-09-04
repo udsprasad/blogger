@@ -13,7 +13,7 @@
 
 - name: Copy Blogger
   copy:
-    src: Blogger
+    src: Blogger.zip
     dest: "{{ansible_user_dir }}/test/"
 
 - name: Execute the command to build docker image
