@@ -1,0 +1,11 @@
+- name: Get infos on container
+  shell: docker ps -a -f name=test10
+  register: result
+
+- name: Execute the command to delete docker container
+  shell: docker container rm test10 -f
+  when: result.stdout_lines|length == 2
+
+
+- name: Execute the command to run docker container
+  shell: docker run -d -p 12321:8000 --name test10 blog:10

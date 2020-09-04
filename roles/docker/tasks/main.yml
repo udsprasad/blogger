@@ -5,10 +5,12 @@
     path: "{{ansible_user_dir }}/test"
     state: directory
     mode: '0755'
+
 - name: Copy Dockerfile
   copy:
     src: Dockerfile
     dest: "{{ansible_user_dir }}/test/"
+
 - name: Copy Blogger
   copy:
     src: Blogger
@@ -17,18 +19,5 @@
 - name: Execute the command to build docker image
   shell: docker build -t blog:10 '{{ ansible_user_dir }}/test/.'
 
-- name: Get infos on container
-  shell: docker ps -a -f name=test10
-  register: result
-
-- name: result
-  debug:
-    msg: "{{result.stdout_lines|length }}"
-
-- name: Execute the command to delete docker container
-  shell: docker container rm test10 -f
-  when: result.stdout_lines|length == 2
-
-
-- name: Execute the command to run docker container
-  shell: docker run -d -p 12321:8000 --name test10 blog:10
+- include_tasks: docker-swarm-service.yml
+# - include_tasks: docker-container.yml

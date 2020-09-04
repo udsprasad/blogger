@@ -1,0 +1,15 @@
+# tasks file for ./roles/docker
+- name: Create a Docker swarm if not exists
+  shell: docker swarm init --advertise-addr {{ ip_address }}
+  ignore_errors: yes
+
+- name: checking whether blogger service is exists or not
+  shell: docker node ps -f name=blog
+  register: result
+
+- name: Delete Blog service
+  shell: docker service rm blog
+  when: result.stdout_lines|length > 1
+
+- name: Create Blog service
+  shell: docker service create --name blog -p 5002:8000 --replicas 2 blog:10
