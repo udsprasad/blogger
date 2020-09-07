@@ -1,0 +1,9 @@
+1) jfrog-artifactory-download
+   cmd->docker pull alexrudoy/jfrog-artifactory-oss:latest
+
+2)cadvisory -download
+  cmd->docker run -v /:/rootfs:ro -v /var/run:/var/run:rw -v /var/lib/docker:/varlib/docker:ro -v /sys:/sys:ro -p 8090:8080 -d --name cadvisor gcr.io/google-containers/cadvisor
+  
+3) GCP with Chrome remote desktop configuration
+
+https://medium.com/@Amit_Shukla/how-to-install-debian-10-buster-or-ubuntu-18-19-desktop-on-google-cloud-and-access-through-vnc-687c05d0d263
