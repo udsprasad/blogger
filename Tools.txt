@@ -7,3 +7,7 @@
 3) GCP with Chrome remote desktop configuration
 
 https://medium.com/@Amit_Shukla/how-to-install-debian-10-buster-or-ubuntu-18-19-desktop-on-google-cloud-and-access-through-vnc-687c05d0d263
+
+4)ngrok installation
+
+https://ngrok.com/download
