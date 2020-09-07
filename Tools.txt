@@ -11,3 +11,7 @@ https://medium.com/@Amit_Shukla/how-to-install-debian-10-buster-or-ubuntu-18-19-
 4)ngrok installation
 
 https://ngrok.com/download
+
+5) jenkins plugins manual installation link
+
+https://updates.jenkins-ci.org/download/plugins/
