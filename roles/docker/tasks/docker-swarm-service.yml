@@ -12,4 +12,4 @@
   when: result.stdout_lines|length > 1
 
 - name: Create Blog service
-  shell: docker service create --name blog -p 5001:8000 --replicas 2 blog:10
+  shell: docker service create --name blog -p 5001:8000 blog:10
