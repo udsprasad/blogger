@@ -15,3 +15,7 @@ https://ngrok.com/download
 5) jenkins plugins manual installation link
 
 https://updates.jenkins-ci.org/download/plugins/
+
+6) if you face any issue with ngrok in connection please use this command
+
+./ngrok http -region=eu {port_number}
