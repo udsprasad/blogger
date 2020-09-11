@@ -24,7 +24,7 @@ pipeline {
          }
          stage('Jfrog_upload') { 
             steps {
-                 sh label: '', script: 'curl -uadmin:password -T *.zip "http://localhost:8081/artifactory/example-repo-local/Capstone_${BUILD_NUMBER}/"'
+                 sh label: '', script: 'curl -uadmin:admin@123 -T *.zip "http://localhost:8083/artifactory/example-repo-local/Capstone_${BUILD_NUMBER}/"'
             }
         }
          stage('Deploy') { 
