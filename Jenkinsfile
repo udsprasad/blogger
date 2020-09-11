@@ -7,11 +7,10 @@ pipeline {
                 python3 -m coverage run -m  pytest -v
                 python3 -m coverage xml -i
                 cd ../selenium
-                python3 test_login.py
-                zip Blogger.zip -r Blogger'''
+                python3 test_login.py'''
             }
         }
-        stage('SonarQube analysis') {
+        stage('SonarQube analysis and created zip file') {
              steps {
                   script {
                   def scannerHome = tool 'SonarQube Scanner 3.0.2.768';
@@ -19,6 +18,7 @@ pipeline {
                    sh "${scannerHome}/bin/sonar-scanner"
                   }
               }
+                 sh label: '', script: ' zip Blogger.zip -r Blogger'
            }
          }
          stage('Deploy') { 
