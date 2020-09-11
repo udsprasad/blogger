@@ -11,9 +11,10 @@ pipeline {
             }
         }
         stage('SonarQube analysis and created zip file') {
+               environment {
+              scannerHome= tool name: 'SonarQube Scanner 3.0.2.768', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+             } 
              steps {
-                  script {
-                  def scannerHome = tool 'SonarQube Scanner 3.0.2.768';
                   withSonarQubeEnv("Scan") {
                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Project
                                                         -Dsonar.projectName=Blogger${BUILD_NUMBER}
@@ -23,7 +24,7 @@ pipeline {
                                                         -Dsonar.sourceEncoding=UTF-8
                                                         -Dsonar.python.coverage.reportPath=Blogger/coverage.xml '''
                   }
-              }
+  
                  sh label: '', script: ' zip Blogger.zip -r Blogger'
            }
          }
