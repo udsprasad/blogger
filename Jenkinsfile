@@ -22,6 +22,11 @@ pipeline {
                  sh label: '', script: ' zip Blogger.zip -r Blogger'
            }
          }
+         stage('Jfrog_upload') { 
+            steps {
+                 sh label: '', script: 'curl -uadmin:password -T *.zip "http://localhost:8081/artifactory/example-repo-local/Capstone_${BUILD_NUMBER}/"'
+            }
+        }
          stage('Deploy') { 
             steps {
                 ansiblePlaybook installation: 'ansible', playbook: 'docker.yml'
