@@ -19,3 +19,7 @@ https://updates.jenkins-ci.org/download/plugins/
 6) if you face any issue with ngrok in connection please use this command
 
 ./ngrok http -region=eu {port_number}
+
+7)pipeline tutorial link
+
+https://www.jenkins.io/doc/book/pipeline/
