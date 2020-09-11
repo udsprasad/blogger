@@ -16,13 +16,7 @@ pipeline {
              } 
              steps {
                   withSonarQubeEnv("Scan") {
-                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Project
-                                                        -Dsonar.projectName=Blogger${BUILD_NUMBER}
-                                                        -Dsonar.projectVersion=1.0
-                                                        -Dsonar.sources=Blogger
-                                                        -Dsonar.language=py
-                                                        -Dsonar.sourceEncoding=UTF-8
-                                                        -Dsonar.python.coverage.reportPath=Blogger/coverage.xml '''
+                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Project -Dsonar.projectName=Blogger${BUILD_NUMBER} -Dsonar.projectVersion=1.0 -Dsonar.sources=Blogger -Dsonar.language=py -Dsonar.sourceEncoding=UTF-8 -Dsonar.python.coverage.reportPath=Blogger/coverage.xml '''
                   }
   
                  sh label: '', script: ' zip Blogger.zip -r Blogger'
