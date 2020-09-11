@@ -4,7 +4,7 @@ pipeline {
         stage('Test') { 
             steps {
                 sh label: '', script: '''cd Blogger
-                python3 -m coverage run -m  pytest -v
+                python3 -m coverage run --source tests,project,config -m  pytest -v
                 python3 -m coverage xml -i
                 cd ../selenium
                 python3 test_login.py'''
